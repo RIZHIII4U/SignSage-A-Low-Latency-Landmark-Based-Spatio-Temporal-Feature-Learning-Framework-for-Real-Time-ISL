@@ -1,0 +1,9 @@
+0 bye
+1 good
+2 hello
+3 morning
+4 amazing
+5 no
+6 thankyou
+7 welcome
+8 yes
