@@ -1,122 +1,150 @@
 # SignSage: A Lightweight Hybrid Framework for Real-Time Indian Sign Language Recognition
 
-> **Official implementation of the SignSage framework described in our Scientific Reports manuscript.**
-
----
-
-## Reproducibility
-
-This repository accompanies the manuscript submitted to **Scientific Reports**.
-
-It contains the complete implementation of the proposed **SignSage** framework, including:
-
-- MediaPipe hand landmark extraction
-- Wrist-relative landmark normalization
-- Motion-aware routing
-- Random Forest classifier for static gesture recognition
-- LSTM-based temporal modeling for dynamic gesture recognition
-- Majority-voting temporal smoothing
-- Real-time inference pipeline
-
-The repository is made publicly available to support transparency and reproducibility of the reported results.
-
----
-
-## Paper
-
-**Title**
-
-> **<Replace with your final revised manuscript title exactly>**
-
-**Authors**
-
-Deepika J., *et al.*
-
-**Journal**
-
-Scientific Reports *(Under Review)*
+> Official implementation of the **SignSage** framework for real-time Indian Sign Language (ISL) recognition.
 
 ---
 
 ## Overview
 
-SignSage is a lightweight hybrid framework for real-time Indian Sign Language (ISL) recognition designed for CPU-based deployment. The framework combines MediaPipe-based hand landmark extraction with wrist-relative normalization, motion-aware routing, Random Forest classification for static gestures, LSTM-based temporal modeling for dynamic gestures, and majority-voting based temporal smoothing to achieve efficient and accurate recognition.
+This repository contains the implementation of **SignSage**, a lightweight hybrid framework for real-time Indian Sign Language (ISL) recognition using MediaPipe hand landmarks. The framework combines wrist-relative landmark normalization, motion-aware routing, Random Forest classification for static gestures, LSTM-based temporal modeling for dynamic gestures, and majority voting for stable real-time predictions.
 
 ---
 
-## Framework
+## Highlights
 
-The overall pipeline consists of the following stages:
-
-1. Video Capture
-2. MediaPipe Hand Landmark Extraction
-3. Wrist-relative Landmark Normalization
-4. Motion Energy Computation
-5. Motion-aware Routing
-6. Random Forest Classification (Static Gestures)
-7. LSTM Classification (Dynamic Gestures)
-8. Majority Voting
-9. Final Gesture Prediction
+- ✅ Real-time Indian Sign Language recognition
+- ✅ MediaPipe-based 3D hand landmark extraction
+- ✅ Wrist-relative landmark normalization
+- ✅ Motion-aware routing using Motion Energy
+- ✅ Motion Energy Threshold (**τ = 0.02**)
+- ✅ Random Forest classifier for static gestures
+- ✅ Single-layer LSTM classifier for dynamic gestures
+- ✅ Majority-voting temporal smoothing
+- ✅ CPU-friendly implementation
+- ✅ Pre-trained models included
 
 ---
 
-## Repository Structure
+# Framework Configuration
 
-```text
-SignSage/
+| Component | Configuration |
+|-----------|---------------|
+| Input | RGB Video |
+| Landmark Detector | MediaPipe Hands |
+| Hand Landmarks | 21 |
+| Landmark Features | Wrist-relative normalized (x, y, z) coordinates |
+| Motion Metric | Motion Energy |
+| Motion Threshold (τ) | **0.02** |
+| Static Gesture Model | Random Forest |
+| Dynamic Gesture Model | Single-layer LSTM |
+| Prediction Stabilization | Majority Voting |
+| Deployment | Real-time CPU Inference |
+
+---
+
+# Repository Structure
+
+```
+.
+├── Main.ipynb
+├── final_code.py
+├── feature_extractor.py
+├── extract_all.py
+├── augment_dataset.py
 │
-├── dataset/
-├── models/
-├── preprocessing/
-├── training/
-├── inference/
-├── utils/
-├── results/
-├── figures/
-├── requirements.txt
+├── realtime_static_voice_ui.py
+├── realtime_dynamic_lstm_inference.py
+│
+├── alphabets_model.h5
+├── numbers_model.h5
+├── dynamic_model.h5
+├── isl_dynamic_lstm.h5
+├── lstm_signsage.keras
+│
+├── dynamic_classes.npy
+├── label1.txt
+├── label2.txt
+├── label3.txt
+│
+├── hand_landmarker.task
+│
+├── Fig_Motion_Energy_Routing.png
+├── Fig_RF_Confusion_Matrix.png
+├── Fig_LSTM_Confusion_Matrix.png
+├── Fig_LSTM_Training_Curves.png
+├── Fig_Learning_Rate_Study.png
+├── Fig_Final_Results_Summary.png
+│
 └── README.md
 ```
 
 ---
 
-## Dataset
+# Repository Contents
 
-The experiments use publicly available Indian Sign Language datasets described in the manuscript.
+## Source Code
 
-Please download the corresponding datasets from their original sources and organize them using the following directory structure.
-
-```text
-dataset/
-    static/
-    dynamic/
-```
-
----
-
-## Experimental Configuration
-
-| Parameter | Value |
-|-----------|-------|
-| Feature Representation | Wrist-relative normalized landmarks |
-| Static Classifier | Random Forest |
-| Dynamic Classifier | Single-layer LSTM |
-| Motion Routing | Motion Energy Threshold |
-| Temporal Smoothing | Majority Voting |
+| File | Description |
+|------|-------------|
+| `Main.ipynb` | Main notebook containing training and evaluation pipeline |
+| `final_code.py` | Complete SignSage implementation |
+| `feature_extractor.py` | MediaPipe hand landmark extraction |
+| `extract_all.py` | Feature extraction from the dataset |
+| `augment_dataset.py` | Dataset augmentation |
+| `realtime_static_voice_ui.py` | Real-time static gesture recognition with voice output |
+| `realtime_dynamic_lstm_inference.py` | Real-time dynamic gesture recognition |
 
 ---
 
-## Requirements
+## Pre-trained Models
+
+| Model | Purpose |
+|--------|---------|
+| `alphabets_model.h5` | Static alphabet recognition |
+| `numbers_model.h5` | Static number recognition |
+| `dynamic_model.h5` | Dynamic gesture recognition |
+| `isl_dynamic_lstm.h5` | LSTM dynamic gesture model |
+| `lstm_signsage.keras` | Final SignSage LSTM model |
+
+---
+
+## Supporting Files
+
+| File | Description |
+|------|-------------|
+| `dynamic_classes.npy` | Dynamic gesture labels |
+| `label1.txt` | Alphabet labels |
+| `label2.txt` | Number labels |
+| `label3.txt` | Dynamic gesture labels |
+| `hand_landmarker.task` | MediaPipe hand landmark model |
+
+---
+
+## Figures
+
+| Figure | Description |
+|--------|-------------|
+| `Fig_Motion_Energy_Routing.png` | Motion-aware routing mechanism |
+| `Fig_RF_Confusion_Matrix.png` | Confusion matrix for Random Forest |
+| `Fig_LSTM_Confusion_Matrix.png` | Confusion matrix for LSTM |
+| `Fig_LSTM_Training_Curves.png` | LSTM training and validation curves |
+| `Fig_Learning_Rate_Study.png` | Learning rate analysis |
+| `Fig_Final_Results_Summary.png` | Overall experimental results |
+
+---
+
+# Requirements
 
 - Python 3.10+
 - TensorFlow
-- Scikit-learn
 - MediaPipe
 - OpenCV
 - NumPy
+- Scikit-learn
 - Pandas
 - Matplotlib
 
-Install all dependencies using:
+Install the required packages:
 
 ```bash
 pip install -r requirements.txt
@@ -124,62 +152,57 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Framework
+# Usage
 
-### Train
+### Extract Features
 
 ```bash
-python train.py
+python extract_all.py
 ```
 
-### Test
+### Augment Dataset
 
 ```bash
-python test.py
+python augment_dataset.py
 ```
 
-### Real-Time Inference
+### Run Static Gesture Recognition
 
 ```bash
-python inference.py
+python realtime_static_voice_ui.py
+```
+
+### Run Dynamic Gesture Recognition
+
+```bash
+python realtime_dynamic_lstm_inference.py
 ```
 
 ---
 
-## Results
+# Reproducibility
 
-The manuscript reports:
+This repository accompanies the manuscript submitted to **Scientific Reports**.
 
-- Static Gesture Recognition
-- Dynamic Gesture Recognition
-- Overall Framework Performance
-- CPU Inference Time
-- Frames Per Second (FPS)
+It provides the implementation of the proposed SignSage framework, including:
 
-Detailed experimental settings and evaluation metrics are described in the accompanying manuscript.
+- MediaPipe hand landmark extraction
+- Wrist-relative landmark normalization
+- Motion-aware routing
+- Static gesture recognition using Random Forest
+- Dynamic gesture recognition using LSTM
+- Real-time inference pipeline
 
----
-
-## Reproducibility Notes
-
-The implementation follows the methodology described in the manuscript.
-
-For successful reproduction:
-
-- Use the same preprocessing pipeline.
-- Maintain the dataset directory structure.
-- Install all required dependencies.
-- Follow the experimental configuration reported in the paper.
+The repository has been made **publicly available** to support transparency and reproducibility of the reported research.
 
 ---
+# License
 
-## License
-
-This project is released for academic and research purposes.
+This repository is intended for academic and research purposes.
 
 ---
 
 
 ## Note
 
-This repository contains the implementation corresponding to the revised manuscript submitted to **Scientific Reports**. Minor updates may be incorporated to improve documentation and reproducibility while preserving the methodology and experimental settings described in the manuscript.
+This repository corresponds to the implementation of the revised manuscript submitted to **Scientific Reports**. Documentation may be updated over time to improve clarity and reproducibility without changing the reported methodology.
