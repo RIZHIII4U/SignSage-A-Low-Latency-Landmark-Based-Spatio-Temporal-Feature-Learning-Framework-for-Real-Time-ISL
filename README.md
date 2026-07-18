@@ -13,7 +13,7 @@ This repository contains the implementation of **SignSage**, a lightweight hybri
 ## Highlights
 
 - ✅ Real-time Indian Sign Language recognition
-- ✅ MediaPipe-based 3D hand landmark extraction
+- ✅ MediaPipe-based hand landmark extraction
 - ✅ Wrist-relative landmark normalization
 - ✅ Motion-aware routing using Motion Energy
 - ✅ Motion Energy Threshold (**τ = 0.02**)
@@ -32,7 +32,7 @@ This repository contains the implementation of **SignSage**, a lightweight hybri
 | Input | RGB Video |
 | Landmark Detector | MediaPipe Hands |
 | Hand Landmarks | 21 |
-| Landmark Features | Wrist-relative normalized (x, y, z) coordinates |
+| Landmark Features | Wrist-relative normalized (x, y) coordinates |
 | Motion Metric | Motion Energy |
 | Motion Threshold (τ) | **0.02** |
 | Static Gesture Model | Random Forest |
@@ -143,6 +143,8 @@ This repository contains the implementation of **SignSage**, a lightweight hybri
 - Scikit-learn
 - Pandas
 - Matplotlib
+- joblib
+- pyttsx3
 
 Install the required packages:
 
